@@ -1,4 +1,5 @@
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
@@ -20,11 +21,11 @@ const SignUp = () => {
     <TextField placeholder='Email' size='small' fullWidth />
     </Box>
     <Box className="my-3">
-    <TextField placeholder='****' size='small' type={ShowPassword? 'text' : 'Password'} slotProps={{
+    <TextField placeholder='Password' size='small' type={ShowPassword? 'text' : 'Password'} slotProps={{
           input: {
             endAdornment: (
               <InputAdornment position="start" onClick={()=>setShowPassword(!ShowPassword)} >
-                <VisibilityIcon />
+               {ShowPassword ? <VisibilityOffIcon /> : <VisibilityIcon /> }
               </InputAdornment>
             ),
           },
