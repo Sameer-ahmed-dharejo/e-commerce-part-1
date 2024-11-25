@@ -1,32 +1,40 @@
-import { Box, Button, Card, Rating, Typography } from '@mui/material'
+import { Box, Button, Card, Grid, Rating, Typography } from '@mui/material'
 // import { Card, Rating } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ImageProdect1 from '../assets/kiwi1.jpg';
 import ImageProdect2 from '../assets/peach-fruit.jpg';
 import ImageProdect3 from '../assets/pomegranate.jpg';
+import axios from 'axios'
 
-const prodectsDeta = [
-    { id: 1, image: ImageProdect1, name: "Kiwi Juice", rating: 3, price: "3.50" },
-    { id: 2, image: ImageProdect2, name: "Peach Fruit", rating: 4, price: "5.00" },
-    { id: 3, image: ImageProdect3, name: "Pomegranate", rating: 5, price: "10.00" },
-  ];
 
 const ProdectsCard = () => {
+  const [prodects, setProdects]= useState([]);
+  console.log(prodects, 'prodects');
+  
+
+  useEffect(()=>{
+    const prodectsData = axios.get('https://api.escuelajs.co/api/v1/products').then((data)=> setProdects(data.data)
+    )
+    
+  },[])
   return (
-    <Box className="text-center d-flex justify-content-center gap-3 flex-wrap">
-    {prodectsDeta.map((product) => (
-      <Card key={product.id} className="text-center p-3" >
-        <img src={product.image} alt={product.name} />
-        <Typography variant="h5" className="mt-2">{product.name}</Typography>
+    <Grid container >
+    {prodects?.map((product) => (
+<Grid Item sm={3}>
+<Card key={product.id} className="text-center p-3" >
+        <img className='img-fluid' src={product.images[0]} alt='' />
+        <Typography variant="h5" className="mt-2">{product.title}</Typography>
         <Rating name="read-only" value={product.rating} readOnly />
         <Typography variant="h6">${product.price}</Typography>
         <Button className="my-3" variant="contained">
           <AddIcon /> Add
         </Button>
       </Card>
+</Grid>
+
     ))}
-  </Box>
+  </Grid>
   )
 }
 
