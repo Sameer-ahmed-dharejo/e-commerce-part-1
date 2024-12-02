@@ -15,8 +15,11 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import ProdectsCard from '../prodect-card/ProdectsCard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Menu, MenuItem } from '@mui/material';
+import { Badge, Menu, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
+import CartList from '../cart-list/CartList';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useSelector } from 'react-redux';
 
 interface Props {
   window?: () => Window;
@@ -31,6 +34,14 @@ function AppLayout(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+  const [openCartList, setOpenCartList] = React.useState(false);
+  const {count} = useSelector ((state)=> state.counter)
+  // console.log(count, 'count');
+  
+  const toggleCartLiist = (newOpen) => () => {
+      setOpenCartList(newOpen);
+  }
   
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -90,6 +101,9 @@ function AppLayout(props: Props) {
                 {item}
               </Button>
             ))}
+            <Badge badgeContent={count} color="secondary">
+              <ShoppingCartIcon  sx={{cursor:'pointer'}} className='text-white' onClick={toggleCartLiist(true)} />
+            </Badge>
       
       <Button className='text-white'
         id="basic-button"
@@ -137,6 +151,7 @@ function AppLayout(props: Props) {
         <Toolbar />
         <ProdectsCard  />
       </Box>
+      <CartList openCartList={openCartList} toggleCartLiist={toggleCartLiist} />
     </Box>
   );
 }
