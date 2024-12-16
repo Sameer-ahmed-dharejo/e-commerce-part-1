@@ -16,10 +16,10 @@ import Button from '@mui/material/Button';
 import ProdectsCard from '../prodect-card/ProdectsCard';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Badge, Menu, MenuItem } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import CartList from '../cart-list/CartList';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useSelector } from 'react-redux';
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 interface Props {
   window?: () => Window;
@@ -36,7 +36,7 @@ function AppLayout(props: Props) {
   const open = Boolean(anchorEl);
 
   const [openCartList, setOpenCartList] = React.useState(false);
-  const {count} = useSelector ((state)=> state.counter)
+  const {cartItems} = useSelector ((state)=> state.cart)
   // console.log(count, 'count');
   
   const toggleCartLiist = (newOpen) => () => {
@@ -101,8 +101,8 @@ function AppLayout(props: Props) {
                 {item}
               </Button>
             ))}
-            <Badge badgeContent={count} color="secondary">
-              <ShoppingCartIcon  sx={{cursor:'pointer'}} className='text-white' onClick={toggleCartLiist(true)} />
+            <Badge badgeContent={cartItems?.length} color="secondary">
+              <InventoryIcon  sx={{cursor:'pointer'}} className='text-white' onClick={toggleCartLiist(true)} />
             </Badge>
       
       <Button className='text-white'
@@ -124,7 +124,7 @@ function AppLayout(props: Props) {
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}><Link className='text-black text-decoration-none' to='/sign-in'>My account</Link></MenuItem>
+        <MenuItem onClick={handleClose}><Link className='text-decoration-none' to='/sign-in'>My account</Link></MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
           </Box>
@@ -149,8 +149,9 @@ function AppLayout(props: Props) {
       </nav>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
-        <ProdectsCard  />
+        <Outlet/>
       </Box>
+      
       <CartList openCartList={openCartList} toggleCartLiist={toggleCartLiist} />
     </Box>
   );

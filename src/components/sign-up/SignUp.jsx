@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { Controller, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import SignUpImage from '../assets/signupimage.webp'
 
 const schema = yup
   .object({
@@ -27,7 +28,11 @@ const SignUp = () => {
   })
   return (
 
-    <div className='d-flex justify-content-center align-items-center vh-100'>
+    <Box className='d-flex justify-content-center align-items-center vh-100 '>
+      <Box className='px-5'>
+        <img src={SignUpImage} alt="" />
+      </Box>
+      <Box>
       <form onSubmit={handleSubmit((data) => {
         console.log(data);
 
@@ -54,7 +59,8 @@ const SignUp = () => {
           <Button className='my-3' type='submit' fullWidth variant='contained' >Sign Up</Button>
         </Box>
       </form>
-    </div>
+      </Box>
+    </Box>
   )
 }
 
