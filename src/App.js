@@ -9,20 +9,20 @@ import { Store } from './store/Store';
 import { Provider } from 'react-redux';
 import ProductDetails from './components/product-details/ProductDetails';
 import ProdectsCard from './components/prodect-card/ProdectsCard';
+import ProtectRoute from './components/product-route/ProductRoute';
 
 function App() {
   const router = createBrowserRouter([
-    {  path: "/", element: <AppLayout />,
+    {  path: "/", element:  <AppLayout />,
       children:[{
         path:'',
-        element: <ProdectsCard  />
+        element: ( <ProtectRoute><ProdectsCard /> </ProtectRoute>),
       },
-      {path:'/product-details/:product_id', element:<ProductDetails />},
+      {path:'/product-details/:product_id', element:(<ProtectRoute><ProductDetails /></ProtectRoute>),},
       {  path: "/sign-in", element: <SignIn />,  },
       {  path: "/sign-up", element: <SignUp />, },
       ],
        errorElement: <PageNotFound />  },
-      //  {path:'/product-details/:product-id', element:<ProductDetails />},
     
   ]);
   return (

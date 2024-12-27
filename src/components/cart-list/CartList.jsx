@@ -40,6 +40,7 @@ const CartList = (props) => {
           </Box>
         )
        })}
+       
        </Box>
       </Drawer>
     </>

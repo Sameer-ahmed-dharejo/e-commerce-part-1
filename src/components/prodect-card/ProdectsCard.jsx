@@ -29,13 +29,6 @@ const ProdectsCard = () => {
 
   const dispatch = useDispatch ()
 
-  // const filterProducts = (categoryProduct) => {
-  //   const filterByCategory = categoryProduct
-  //     ? products.filter((item) => item.category?.name === categoryProduct.value)
-  //     : products;
-  //   setUpdatedProductsArr(filterByCategory);
-  // };
-
   const filterProducts = (categoryProduct) => {
     const filterByCategory = categoryProduct
       ? products.filter((item) => item.category === categoryProduct.value)
